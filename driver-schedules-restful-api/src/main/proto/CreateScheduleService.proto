@@ -1,0 +1,32 @@
+syntax = 'proto3';
+option java_multiple_files = true;
+package dk.cosby.si.exam.driverscheduleapi;
+
+message CreateScheduleRequest {
+  string teacherId = 1;
+
+  message Student {
+    string id = 1;
+
+    message Lesson {
+      string start = 1;
+      string end = 2;
+    }
+
+    repeated Lesson lessons = 2;
+  }
+
+  repeated Student students = 2;
+}
+
+message CreateScheduleResponse {
+  bool acknowledged = 1;
+  bool success = 2;
+  string insertedId = 3;
+  string errorMessage = 4;
+}
+
+service CreateScheduleService {
+  rpc CreateSchedule (CreateScheduleRequest) returns (CreateScheduleResponse);
+}
+

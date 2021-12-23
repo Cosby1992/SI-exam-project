@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+  schedules-api:
+    build: ./driver-schedule-api
+    depends_on:
+      - mongodb
+      - rabbitmq
+    ports:
+      - "9090:9090"
+    restart: on-failure  
+  mongodb:
+    image: mongo
+    ports:
+      - "27017:27017"
+    restart: on-failure
+  rabbitmq:
+    image: rabbitmq:3.9-management
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    restart: on-failure
