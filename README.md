@@ -26,4 +26,4 @@ The cars of the driving school have sensors attached, in the event of unusual g-
 |Docker|Containerrized|
 
 ## System design
-![syetmdesign](resources/systemdesign.png)
+![syetmdesign](/resources/systemdesign.png)
