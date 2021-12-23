@@ -13,9 +13,7 @@ import dk.cosby.si.exam.driverscheduleapi.utils.GrpcObjectConverter;
 import io.grpc.stub.StreamObserver;
 import net.devh.boot.grpc.server.service.GrpcService;
 
-import java.io.IOException;
 import java.text.ParseException;
-import java.util.concurrent.TimeoutException;
 
 @GrpcService
 public class CreateScheduleService extends CreateScheduleServiceGrpc.CreateScheduleServiceImplBase {
@@ -29,11 +27,13 @@ public class CreateScheduleService extends CreateScheduleServiceGrpc.CreateSched
     @Override
     public void createSchedule(CreateScheduleRequest request, StreamObserver<CreateScheduleResponse> responseObserver) {
 
+        // Response declarations
         boolean acknowledged = false;
         boolean success = false;
         StringBuilder errorMessageBuilder = new StringBuilder();
         StringBuilder id = new StringBuilder();
 
+        // Validate and persist to db
         try {
             Schedule schedule = GrpcObjectConverter.parseRequestToSchedule(request);
             acknowledged = true;
@@ -45,6 +45,7 @@ public class CreateScheduleService extends CreateScheduleServiceGrpc.CreateSched
             System.out.println(e.getMessage());
         }
 
+        // Create the response
         CreateScheduleResponse response = CreateScheduleResponse.newBuilder()
                                                                 .setAcknowledged(acknowledged)
                                                                 .setSuccess(success)
